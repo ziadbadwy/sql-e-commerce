@@ -1,0 +1,91 @@
+CREATE DATABASE collage;
+CREATE TABLE theem(
+    id int AUTO_INCREMENT,
+    them int,
+    
+    PRIMARY KEY(id)
+);
+CREATE TABLE users(
+    id bigint(20) unsigned AUTO_INCREMENT,
+    name varchar(255),
+    email varchar(255),
+    role int,
+    password varchar(255),
+    remember_token varchar(100),
+    theem int,
+    PRIMARY KEY(id)
+);
+CREATE TABLE news(
+    id int,
+    news text,
+    image text,
+    pdf text,
+    PRIMARY KEY (id)
+);
+CREATE TABLE students(
+   id int,
+   name_ar text,
+   name_eng varchar(100),
+   social_ID bigint,
+   gender varchar(10),
+   image text,
+   shoaba varchar(10),
+    schoolType varchar(15),
+    shoolName text,
+    studentPhone varchar(11),
+    address text,
+    region varchar(100),
+    mail varchar(150),
+    fatherPhone varchar(11),
+    firstLanguage varchar(10),
+    total float,
+    eng1 float,
+    finalTotal float,
+    reg_date datetime,
+    password varchar(30),
+     PRIMARY KEY(id)
+);
+CREATE TABLE questions(
+    id int,
+    question varchar(250),
+    answer text,
+    student_id int,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    public int,
+    PRIMARY KEY(id)
+);
+CREATE TABLE programs(
+    program_id int,
+    program text,
+    raghba1 int,
+    raghba2 int,
+    raghba3 int,
+    PRIMARY KEY(program_id)
+);
+CREATE TABLE student_requirements(
+    id int,
+    student_id int,
+    raghba_1_id int,
+    raghba_2_id int,
+    raghba_3_id int,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (raghba_1_id) REFERENCES programs(raghba_1),
+    FOREIGN KEY (raghba_2_id) REFERENCES programs(raghba_2),
+    FOREIGN KEY (raghba_3_id) REFERENCES programs(raghba_3),
+    PRIMARY KEY(id)
+);
+CREATE TABLE pre_decision(
+id int,
+    student_ID int,
+    FOREIGN KEY(student_ID) REFERENCES students(id),
+    PRIMARY KEY(id)
+);
+CREATE TABLE final_decision(
+id int,
+    pre_decision_id int,
+    FOREIGN KEY (pre_decision_id) REFERENCES pre_decision(id),
+    program_id int,
+     FOREIGN KEY (program_id) REFERENCES programs(id),
+    notes varchar(100),
+PRIMARY KEY(id)
+);
